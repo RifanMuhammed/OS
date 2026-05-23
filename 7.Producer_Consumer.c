@@ -1,45 +1,48 @@
 #include <stdio.h>
 
+int data = 0;
 int readcount = 0;
-int writer_waiting = 0;
-int writing = 0;
 
-// Reader
 void reader(int id) {
-    if (writer_waiting || writing) {
-        printf("Reader %d is waiting (writer priority)\n", id);
-        return;
-    }
-
     readcount++;
-    printf("Reader %d is reading\n", id);
-
+    printf("Reader %d is reading data = %d\n", id, data);
     readcount--;
 }
 
-// Writer
 void writer(int id) {
-    writer_waiting = 1;
-
-    if (readcount > 0 || writing) {
-        printf("Writer %d is waiting\n", id);
+    if(readcount > 0) {
+        printf("Writer %d waiting\n", id);
+    } else {
+        data++;
+        printf("Writer %d updated data to %d\n", id, data);
     }
-
-    writer_waiting = 0;
-    writing = 1;
-
-    printf("Writer %d is writing\n", id);
-
-    writing = 0;
 }
 
 int main() {
-    // Simulation order
-    reader(1);
-    reader(2);
-    writer(1);
-    reader(3);
-    writer(2);
+    int choice, id;
+    while(1) {
+        printf("\n1.Reader\n2.Writer\n3.Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
 
-    return 0;
+        switch(choice) {
+            case 1:
+                printf("Enter Reader ID: ");
+                scanf("%d", &id);
+                reader(id);
+                break;
+
+            case 2:
+                printf("Enter Writer ID: ");
+                scanf("%d", &id);
+                writer(id);
+                break;
+
+            case 3:
+                return 0;
+
+            default:
+                printf("Invalid choice\n");
+        }
+    }
 }
