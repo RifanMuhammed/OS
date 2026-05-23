@@ -5,11 +5,8 @@ int main() {
     int alloc[10][10], max[10][10], need[10][10];
     int avail[10], finish[10] = {0}, safe[10];
 
-    printf("Enter number of processes: ");
-    scanf("%d", &n);
-
-    printf("Enter number of resources: ");
-    scanf("%d", &m);
+    printf("Enter number of processes and resources: ");
+    scanf("%d %d", &n, &m);
 
     printf("Enter Allocation Matrix:\n");
     for(i = 0; i < n; i++)
@@ -25,7 +22,6 @@ int main() {
     for(i = 0; i < m; i++)
         scanf("%d", &avail[i]);
 
-    // Need = Max - Allocation
     for(i = 0; i < n; i++)
         for(j = 0; j < m; j++)
             need[i][j] = max[i][j] - alloc[i][j];
@@ -34,19 +30,15 @@ int main() {
 
     while(count < n) {
         int found = 0;
-
         for(i = 0; i < n; i++) {
-            if(!finish[i]) {
-                int flag = 1;
-
+            if(finish[i] == 0) {
                 for(j = 0; j < m; j++) {
-                    if(need[i][j] > avail[j]) {
-                        flag = 0;
+                    if(need[i][j] > avail[j])
                         break;
-                    }
                 }
 
-                if(flag) {
+                // Process can execute
+                if(j == m) {
                     for(k = 0; k < m; k++)
                         avail[k] += alloc[i][k];
 
@@ -57,13 +49,15 @@ int main() {
             }
         }
 
-        if(!found) {
+        // No safe process found
+        if(found == 0) {
             printf("\nSystem is NOT in safe state\n");
             return 0;
         }
     }
 
-    printf("\nSafe Sequence: ");
+    // Print Safe Sequence
+    printf("\nSystem is in SAFE state\nSafe Sequence: ");
     for(i = 0; i < n; i++)
         printf("P%d ", safe[i]);
 
