@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+//FCFS SCHEDULING
 int main() {
     int n, i;
     int bt[10], at[10], wt[10], tat[10], ct[10];
