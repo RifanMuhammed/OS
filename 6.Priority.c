@@ -42,7 +42,11 @@ int main() {
     float avg = 0;
     for(i = 0; i < n; i++) avg += wt[i];
     avg /= n;
-
+    
+    printf("\nProcess\tAT\tBT\tCT\tTAT\tWT\n");
+    for(i = 0; i < n; i++) {
+        printf("P%d\t\t%d\t%d\t%d\t%d\t%d\n",i+1, at[i], bt[i], ct[i], tat[i], wt[i]);
+    }
     printf("\nAvg Waiting Time = %.2f\n", avg);
 
     return 0;
