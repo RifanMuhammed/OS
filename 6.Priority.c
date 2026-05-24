@@ -17,8 +17,9 @@ int main() {
 
         for(i = 0; i < n; i++) {
             if(at[i] <= time && done[i] == 0) {
-                if(idx == -1 || pr[i] > pr[idx])
+                if(idx == -1 || pr[i] > pr[idx]) {
                     idx = i;
+                }
             }
         }
 
