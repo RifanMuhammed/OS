@@ -2,8 +2,7 @@
 //PRIORITY SCHEDULING
 int main() {
     int n, i, j, time = 0, completed = 0;
-    int bt[10], at[10], wt[10], tat[10], ct[10], pr[10];
-    int done[10] = {0};
+    int bt[10], at[10], wt[10], tat[10], ct[10], pr[10], done[10] = {0};
 
     printf("Enter number of processes: ");
     scanf("%d", &n);
