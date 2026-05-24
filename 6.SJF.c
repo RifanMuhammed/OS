@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+//SJF SCHEDULING
 int main() {
     int n, i, time = 0, completed = 0;
     int bt[10], at[10], wt[10], tat[10], ct[10], done[10] = {0};
