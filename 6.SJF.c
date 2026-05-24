@@ -11,7 +11,7 @@ int main() {
         printf("P%d Burst Arrival: ", i+1);
         scanf("%d %d", &bt[i], &at[i]);
     }
-
+//
     while(completed < n) {
         int min = 9999, idx = -1;
 
@@ -31,7 +31,7 @@ int main() {
             time++;
         }
     }
-
+//
     for(i = 0; i < n; i++) {
         tat[i] = ct[i] - at[i];
         wt[i] = tat[i] - bt[i];
