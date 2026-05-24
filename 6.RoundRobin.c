@@ -1,41 +1,55 @@
 #include <stdio.h>
-
+//ROUND ROBIN SCHEDULING
 int main() {
-    int n, i, time = 0, done;
-    int bt[10], rem[10], wt[10];
-    int quantum = 3;
+    int n, i, time = 0, completed = 0, tq = 3;
+    int bt[10], at[10], rt[10], wt[10], tat[10], ct[10], done[10] = {0};
 
     printf("Enter number of processes: ");
     scanf("%d", &n);
 
     for(i = 0; i < n; i++) {
-        printf("P%d Burst Time: ", i+1);
-        scanf("%d", &bt[i]);
-        rem[i] = bt[i];
+        printf("P%d Burst Arrival: ", i+1);
+        scanf("%d %d", &bt[i], &at[i]);
+        rt[i] = bt[i];
     }
-
-    do {
-        done = 1;
-        for(i = 0; i < n; i++) {
-            if(rem[i] > 0) {
-                done = 0;
-
-                if(rem[i] > quantum) {
-                    time += quantum;
-                    rem[i] -= quantum;
+//
+    while(completed < n) {
+        int count=0;
+        
+        for(i=0;i<n;i++){
+            if(at[i]<=time && done[i]==0){
+                found=1
+                
+                if(rt[i]>tq){
+                    rt[i] -=tq;
+                    time +=tq;
                 } else {
-                    time += rem[i];
-                    wt[i] = time - bt[i];
-                    rem[i] = 0;
+                    time+=rt[i];
+                    ct[i]=time;
+                    rt[i]=0;
+                    done[i]=1;
+                    completed++;
                 }
             }
         }
-    } while(!done);
+        
+        if(found==0){
+            time++;
+        }
+    }
+//    
+    for(i = 0; i < n; i++) {
+        tat[i] = ct[i] - at[i];
+        wt[i] = tat[i] - bt[i];
+    }
 
     float avg = 0;
-    for(i = 0; i < n; i++) avg += wt[i];
+    for(i = 0; i < n; i++) {
+        avg += wt[i];
+    }
     avg /= n;
 
     printf("\nAvg Waiting Time = %.2f\n", avg);
+
     return 0;
 }
