@@ -19,7 +19,7 @@ int main() {
 
     for(i = 0; i < f; i++) {
         frames[i] = -1;
-        used[i] = -1;
+        used[i] = -1;                       //additional
     }
 
     for(i = 0; i < n; i++) {
@@ -28,17 +28,13 @@ int main() {
         for(j = 0; j < f; j++) {
             if(frames[j] == pages[i]) {
                 found = 1;
-
-                // update recent use time
-                used[j] = i;
+                used[j] = i;                //additional
                 break;
             }
         }
-
-        // page fault
+//
         if(found == 0) {
             int lru = 0;
-            // find least recently used page
             for(j = 1; j < f; j++) {
                 if(used[j] < used[lru]) {
                     lru = j;
@@ -50,7 +46,7 @@ int main() {
             faults++;
         }
     }
-
+//
     printf("Page Faults = %d", faults);
 
     return 0;
