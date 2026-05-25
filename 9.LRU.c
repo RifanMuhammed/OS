@@ -21,7 +21,7 @@ int main() {
         frames[i] = -1;
         used[i] = -1;                       //additional
     }
-
+//
     for(i = 0; i < n; i++) {
         found = 0;
 
@@ -32,7 +32,7 @@ int main() {
                 break;
             }
         }
-//
+
         if(found == 0) {
             int lru = 0;
             for(j = 1; j < f; j++) {
