@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 int main() {
-
     int n, f, i, j;
     int pages[20], frames[10];
     int faults = 0, found;
