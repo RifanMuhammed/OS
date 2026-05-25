@@ -1,7 +1,6 @@
 #include <stdio.h>
-
+// LRU 
 int main() {
-
     int n, f, i, j;
     int pages[20], frames[10], used[10];
     int faults = 0, found;
@@ -48,6 +47,4 @@ int main() {
     }
 //
     printf("Page Faults = %d", faults);
-
-    return 0;
 }
