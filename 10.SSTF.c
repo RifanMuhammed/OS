@@ -15,7 +15,7 @@ int main() {
 
     printf("Enter initial head position: ");
     scanf("%d", &head);
-
+//
     for(int i = 0; i < n; i++) {
         int min = 9999,pos = -1;
 
@@ -30,5 +30,6 @@ int main() {
         head = req[pos];
         visited[pos] = 1;
     }
+//
     printf("Total Seek Time = %d\n", total);
 }
