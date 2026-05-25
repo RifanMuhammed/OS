@@ -14,7 +14,7 @@ int main() {
     }
 //
     while(completed < n) {
-        int count=0;
+        int found=0;
         
         for(i=0;i<n;i++){
             if(at[i]<=time && done[i]==0){
