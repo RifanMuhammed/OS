@@ -19,7 +19,7 @@ int main() {
     for(i = 0; i < f; i++) {
         frames[i] = -1;
     }
-
+//
     for(i = 0; i < n; i++) {
         found = 0;
 
@@ -36,7 +36,7 @@ int main() {
             faults++;
         }
     }
-
+//
     printf("Page Faults = %d", faults);
 
     return 0;
