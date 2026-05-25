@@ -17,7 +17,6 @@ int main() {
 
     for(int i = 0; i < n-1; i++) {
         for(int j = i+1; j < n; j++) {
-
             if(req[i] > req[j]) {
                 int temp = req[i];
                 req[i] = req[j];
@@ -25,7 +24,7 @@ int main() {
             }
         }
     }
-
+//
     int idx = 0;
     while(idx < n && req[idx] < head)
         idx++;
@@ -41,6 +40,6 @@ int main() {
         total += abs(head - req[i]);
         head = req[i];
     }
-
+//
     printf("Total Seek Time = %d\n", total);
 }
