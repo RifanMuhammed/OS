@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 int main() {
-
     int n, head, total = 0;
     int req[20];
 
@@ -10,9 +9,10 @@ int main() {
     scanf("%d", &n);
 
     printf("Enter requests: ");
-    for(int i = 0; i < n; i++)
+    for(int i = 0; i < n; i++){
         scanf("%d", &req[i]);
-
+    }    
+        
     printf("Enter initial head position: ");
     scanf("%d", &head);
 
