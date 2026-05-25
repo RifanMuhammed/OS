@@ -29,7 +29,7 @@ int main() {
     int idx = 0;
     while(idx < n && req[idx] < head)
         idx++;
-
+//
     // move right
     for(int i = idx; i < n; i++) {
         total += abs(head - req[i]);
@@ -45,6 +45,6 @@ int main() {
         total += abs(head - req[i]);
         head = req[i];
     }
-
+//
     printf("Total Seek Time (CSCAN) = %d\n", total);
 }
