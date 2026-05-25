@@ -1,24 +1,28 @@
 #include <stdio.h>
 
 int main() {
-    int n, f, i, j, k, faults = 0;
-    int frames[10];
+
+    int n, f, i, j;
+    int pages[20], frames[10];
+    int faults = 0, found;
 
     printf("Enter number of pages: ");
     scanf("%d", &n);
 
-    int pages[n];
     printf("Enter reference string: ");
-    for(i = 0; i < n; i++) scanf("%d", &pages[i]);
+    for(i = 0; i < n; i++) {
+        scanf("%d", &pages[i]);
+    }
 
     printf("Enter number of frames: ");
     scanf("%d", &f);
 
-    for(i = 0; i < f; i++) frames[i] = -1;
-
+    for(i = 0; i < f; i++) {
+        frames[i] = -1;
+    }
+//
     for(i = 0; i < n; i++) {
-        int found = 0;
-
+        found = 0;
         for(j = 0; j < f; j++) {
             if(frames[j] == pages[i]) {
                 found = 1;
@@ -26,34 +30,38 @@ int main() {
             }
         }
 
-        if(!found) {
-            int idx = -1, farthest = i;
-
+        // page fault
+        if(found == 0) {
+            int pos = -1;
+            int farthest = i + 1;
             for(j = 0; j < f; j++) {
+                int k;
+                // search future references
                 for(k = i + 1; k < n; k++) {
-                    if(frames[j] == pages[k]) break;
-                }
-
-                if(k > farthest) {
-                    farthest = k;
-                    idx = j;
-                }
-            }
-
-            if(idx == -1) {
-                for(j = 0; j < f; j++) {
-                    if(frames[j] == -1) {
-                        idx = j;
+                    if(frames[j] == pages[k]) {
                         break;
                     }
                 }
+                // page never used again
+                if(k == n) {
+                    pos = j;
+                    break;
+                }
+                // page used farthest in future
+                if(k > farthest) {
+                    farthest = k;
+                    pos = j;
+                }
+            }
+            // if all pages used again
+            if(pos == -1) {
+                pos = 0;
             }
 
-            frames[idx] = pages[i];
+            frames[pos] = pages[i];
             faults++;
         }
     }
-
-    printf("Page Faults (Optimal) = %d\n", faults);
-    return 0;
+//
+    printf("Page Faults = %d", faults);
 }
