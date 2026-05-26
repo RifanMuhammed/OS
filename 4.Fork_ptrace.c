@@ -30,6 +30,6 @@ int main() {
     return 0;
 }
 
-
+// NOTE
 // ptrace() system call is used for tracing processes.
 // PTRACE_TRACEME inside it means "This process should be traced by its parent."
