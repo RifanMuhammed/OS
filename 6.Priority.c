@@ -1,53 +1,74 @@
 #include <stdio.h>
-//PRIORITY SCHEDULING
+// PRIORITY SCHEDULING
 int main() {
-    int n, i, j, time = 0, completed = 0;
-    int bt[10], at[10], wt[10], tat[10], ct[10], pr[10], done[10] = {0};
+    int totalProcesses, i, j;
+
+    int currentTime = 0;
+    int completedProcesses = 0;
+
+    int burstTime[10];
+    int arrivalTime[10];
+    int waitingTime[10];
+    int turnaroundTime[10];
+    int completionTime[10];
+    int priority[10];
+
+    int finished[10] = {0};
 
     printf("Enter number of processes: ");
-    scanf("%d", &n);
+    scanf("%d", &totalProcesses);
 
-    for(i = 0; i < n; i++) {
-        printf("P%d Burst Arrival Priority: ", i+1);
-        scanf("%d %d %d", &bt[i], &at[i], &pr[i]);
+    for(i = 0; i < totalProcesses; i++) {
+        printf("P%d Burst Arrival Priority: ", i + 1);
+        scanf("%d %d %d",&burstTime[i], &arrivalTime[i],&priority[i]);
     }
-//
-    while(completed < n) {
-        int idx = -1;
 
-        for(i = 0; i < n; i++) {
-            if(at[i] <= time && done[i] == 0) {
-                if(idx == -1 || pr[i] > pr[idx]) {
-                    idx = i;
+    while(completedProcesses < totalProcesses) {
+        int selectedProcess = -1;
+        for(i = 0; i < totalProcesses; i++) {
+            if(arrivalTime[i] <= currentTime &&
+               finished[i] == 0) {
+
+                if(selectedProcess == -1 ||
+                   priority[i] > priority[selectedProcess]) {
+                    selectedProcess = i;
                 }
             }
         }
 
-        if(idx != -1) {
-            time += bt[idx];
-            ct[idx] = time;
-            done[idx] = 1;
-            completed++;
+        if(selectedProcess != -1) {
+            currentTime += burstTime[selectedProcess];
+            completionTime[selectedProcess] =currentTime;
+            finished[selectedProcess] = 1;
+            completedProcesses++;
         }
         else {
-            time++;
+            currentTime++;
         }
     }
-//
-    for(i = 0; i < n; i++) {
-        tat[i] = ct[i] - at[i];
-        wt[i] = tat[i] - bt[i];
+
+    for(i = 0; i < totalProcesses; i++) {
+        turnaroundTime[i] =completionTime[i] - arrivalTime[i];
+        waitingTime[i] =turnaroundTime[i] - burstTime[i];
     }
 
-    float avg = 0;
-    for(i = 0; i < n; i++) avg += wt[i];
-    avg /= n;
-    
+    float averageWaitingTime = 0;
+    for(i = 0; i < totalProcesses; i++)
+        averageWaitingTime += waitingTime[i];
+    averageWaitingTime /= totalProcesses;
+
     printf("\nProcess\tAT\tBT\tCT\tTAT\tWT\n");
-    for(i = 0; i < n; i++) {
-        printf("P%d\t\t%d\t%d\t%d\t%d\t%d\n",i+1, at[i], bt[i], ct[i], tat[i], wt[i]);
+    for(i = 0; i < totalProcesses; i++) {
+        printf("P%d\t\t%d\t%d\t%d\t%d\t%d\n",
+               i + 1,
+               arrivalTime[i],
+               burstTime[i],
+               completionTime[i],
+               turnaroundTime[i],
+               waitingTime[i]);
     }
-    printf("\nAvg Waiting Time = %.2f\n", avg);
+    printf("\nAvg Waiting Time = %.2f\n",
+           averageWaitingTime);
 
     return 0;
 }
