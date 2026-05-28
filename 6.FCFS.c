@@ -1,39 +1,58 @@
 #include <stdio.h>
-//FCFS SCHEDULING
+// FCFS SCHEDULING
 int main() {
-    int n, i;
-    int bt[10], at[10], wt[10], tat[10], ct[10];
+
+    int totalProcesses, i;
+
+    int burstTime[10];
+    int arrivalTime[10];
+    int waitingTime[10];
+    int turnaroundTime[10];
+    int completionTime[10];
 
     printf("Enter number of processes: ");
-    scanf("%d", &n);
+    scanf("%d", &totalProcesses);
 
-    for(i = 0; i < n; i++) {
-        printf("P%d Burst Arrival: ", i+1);
-        scanf("%d %d", &bt[i], &at[i]);
+    for(i = 0; i < totalProcesses; i++) {
+        printf("P%d Burst Arrival: ", i + 1);
+        scanf("%d %d",&burstTime[i],&arrivalTime[i]);
     }
-//
-    ct[0] = at[0] + bt[0];
-    for(i = 1; i < n; i++) {
-        if(ct[i-1] < at[i])
-            ct[i] = at[i] + bt[i];
+
+    // Calculate Completion Time
+
+    completionTime[0] =arrivalTime[0] + burstTime[0];
+
+    for(i = 1; i < totalProcesses; i++) {
+        if(completionTime[i - 1] < arrivalTime[i])
+            completionTime[i] =arrivalTime[i] + burstTime[i];
         else
-            ct[i] = ct[i-1] + bt[i];
+            completionTime[i] =completionTime[i - 1] + burstTime[i];
     }
 
-    for(i = 0; i < n; i++) {
-        tat[i] = ct[i] - at[i];
-        wt[i] = tat[i] - bt[i];
+    // Calculate TAT and WT
+    for(i = 0; i < totalProcesses; i++) {
+        turnaroundTime[i] =completionTime[i] - arrivalTime[i];
+        waitingTime[i] =turnaroundTime[i] - burstTime[i];
     }
-//
+     // Display Output
     printf("\nProcess\tAT\tBT\tCT\tTAT\tWT\n");
-    for(i = 0; i < n; i++) {
-        printf("P%d\t\t%d\t%d\t%d\t%d\t%d\n",i+1, at[i], bt[i], ct[i], tat[i], wt[i]);
-    }
-    
-    float avg = 0;
-    for(i = 0; i < n; i++) avg += wt[i];
-    avg /= n;
 
-    printf("\nAvg Waiting Time = %.2f\n", avg);
+    for(i = 0; i < totalProcesses; i++) {
+        printf("P%d\t\t%d\t%d\t%d\t%d\t%d\n",i + 1,
+               arrivalTime[i],
+               burstTime[i],
+               completionTime[i],
+               turnaroundTime[i],
+               waitingTime[i]);
+    }
+
+    // Average Waiting Time
+    float averageWaitingTime = 0;
+
+    for(i = 0; i < totalProcesses; i++)
+        averageWaitingTime += waitingTime[i];
+        averageWaitingTime /= totalProcesses;
+
+    printf("\nAvg Waiting Time = %.2f\n",averageWaitingTime);
     return 0;
 }
