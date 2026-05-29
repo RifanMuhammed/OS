@@ -1,66 +1,138 @@
 #include <stdio.h>
-// OPTIMAL
+
+// OPTIMAL PAGE REPLACEMENT
+
 int main() {
-    int n, f, i, j;
-    int pages[20], frames[10];
-    int faults = 0, found;
+
+    int totalPages, totalFrames, i, j;
+
+    int pageReference[20];
+
+    int memoryFrames[10];
+
+    int pageFaults = 0;
+
+    int pageFound;
 
     printf("Enter number of pages: ");
-    scanf("%d", &n);
+    scanf("%d", &totalPages);
 
     printf("Enter reference string: ");
-    for(i = 0; i < n; i++) {
-        scanf("%d", &pages[i]);
+
+    for(i = 0; i < totalPages; i++) {
+
+        scanf("%d", &pageReference[i]);
     }
 
     printf("Enter number of frames: ");
-    scanf("%d", &f);
+    scanf("%d", &totalFrames);
 
-    for(i = 0; i < f; i++) {
-        frames[i] = -1;
+    for(i = 0; i < totalFrames; i++) {
+
+        memoryFrames[i] = -1;
     }
-//
-    for(i = 0; i < n; i++) {
-        found = 0;
-        for(j = 0; j < f; j++) {
-            if(frames[j] == pages[i]) {
-                found = 1;
+
+    for(i = 0; i < totalPages; i++) {
+
+        pageFound = 0;
+
+        for(j = 0; j < totalFrames; j++) {
+
+            if(memoryFrames[j] ==
+               pageReference[i]) {
+
+                pageFound = 1;
+
                 break;
             }
         }
 
-        // page fault
-        if(found == 0) {
-            int pos = -1;
-            int farthest = i + 1;
-            for(j = 0; j < f; j++) {
+        // PAGE FAULT
+
+        if(pageFound == 0) {
+
+            int replacePosition = -1;
+
+            int farthestUse = i + 1;
+
+            for(j = 0; j < totalFrames; j++) {
+
                 int k;
-                // search future references
-                for(k = i + 1; k < n; k++) {
-                    if(frames[j] == pages[k]) {
+
+                // Check future page usage
+
+                for(k = i + 1; k < totalPages; k++) {
+
+                    if(memoryFrames[j] ==
+                       pageReference[k]) {
+
                         break;
                     }
                 }
-                // page never used again
-                if(k == n) {
-                    pos = j;
+
+                // Page never used again
+
+                if(k == totalPages) {
+
+                    replacePosition = j;
+
                     break;
                 }
-                // page used farthest in future
-                if(k > farthest) {
-                    farthest = k;
-                    pos = j;
+
+                // Page used farthest in future
+
+                if(k > farthestUse) {
+
+                    farthestUse = k;
+
+                    replacePosition = j;
                 }
             }
-            // if all pages used again
-            if(pos == -1) {
-                pos = 0;
+
+            // If all pages will be used again
+
+            if(replacePosition == -1) {
+
+                replacePosition = 0;
             }
 
-            frames[pos] = pages[i];
-            faults++;
+            memoryFrames[replacePosition] =
+                pageReference[i];
+
+            pageFaults++;
         }
     }
-//
-    printf("Page Faults = %d", faults);
+
+    printf("Page Faults = %d",
+           pageFaults);
+
+    return 0;
 }
+
+
+
+Optimal Page Replacement Algorithm
+Start
+Input number of pages
+Input reference string
+Input number of frames
+Initialize all frames as empty
+Set page faults = 0
+
+Repeat for each page in reference string:
+
+a. Check whether page already exists in frames
+
+b. If page exists:
+
+Page Hit
+Continue
+
+c. Else:
+
+Find the page whose next use is farthest in future
+If a page is never used again, replace it immediately
+Replace selected page with new page
+Increase page faults
+Display total page faults
+Stop
