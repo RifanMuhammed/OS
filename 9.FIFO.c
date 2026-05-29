@@ -1,41 +1,68 @@
 #include <stdio.h>
-// FIFO
+
+// FIFO PAGE REPLACEMENT
+
 int main() {
-    int n, f, i, j;
-    int pages[20], frames[10];
-    int faults = 0, front = 0, found;
+
+    int totalPages;
+    int totalFrames;
+
+    int i, j;
+
+    int pageReference[20];
+    int memoryFrames[10];
+
+    int pageFaults = 0;
+
+    int replaceIndex = 0;
+
+    int pageFound;
 
     printf("Enter number of pages: ");
-    scanf("%d", &n);
+    scanf("%d", &totalPages);
 
     printf("Enter reference string: ");
-    for(i = 0; i < n; i++) {
-        scanf("%d", &pages[i]);
+
+    for(i = 0; i < totalPages; i++) {
+
+        scanf("%d", &pageReference[i]);
     }
 
     printf("Enter number of frames: ");
-    scanf("%d", &f);
+    scanf("%d", &totalFrames);
 
-    for(i = 0; i < f; i++) {
-        frames[i] = -1;
+    for(i = 0; i < totalFrames; i++) {
+
+        memoryFrames[i] = -1;
     }
-//
-    for(i = 0; i < n; i++) {
-        found = 0;
 
-        for(j = 0; j < f; j++) {
-            if(frames[j] == pages[i]) {
-                found = 1;
+    for(i = 0; i < totalPages; i++) {
+
+        pageFound = 0;
+
+        for(j = 0; j < totalFrames; j++) {
+
+            if(memoryFrames[j] ==
+               pageReference[i]) {
+
+                pageFound = 1;
+
                 break;
             }
         }
 
-        if(found == 0) {
-            frames[front] = pages[i];
-            front = (front + 1) % f;
-            faults++;
+        if(pageFound == 0) {
+
+            memoryFrames[replaceIndex] =
+                pageReference[i];
+
+            replaceIndex =
+                (replaceIndex + 1) % totalFrames;
+
+            pageFaults++;
         }
     }
-//
-    printf("Page Faults = %d", faults);
+
+    printf("Page Faults = %d",
+           pageFaults);
 }
