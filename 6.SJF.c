@@ -51,3 +51,57 @@ int main() {
 
     return 0;
 }
+SJF Scheduling Algorithm
+Start
+Input number of processes
+Input:
+Burst Time (BT)
+Arrival Time (AT)
+Initialize:
+Current Time = 0
+Completed Processes = 0
+Mark all processes as unfinished
+
+Repeat until all processes are completed:
+
+a. Find process:
+
+whose Arrival Time ≤ Current Time
+not completed
+having minimum Burst Time
+
+b. If a process is found:
+
+Execute process completely
+Increase Current Time by Burst Time
+Calculate Completion Time (CT)
+Mark process as completed
+Increase completed count
+
+c. Else:
+
+Increase Current Time by 1
+Calculate Turnaround Time (TAT):
+
+TAT=CT−AT
+
+Calculate Waiting Time (WT):
+
+WT=TAT−BT
+
+Calculate Average Waiting Time:
+
+Average WT=
+Number of Processes
+Sum of WT
+	​
+
+
+Display:
+AT
+BT
+CT
+TAT
+WT
+Average WT
+Stop
