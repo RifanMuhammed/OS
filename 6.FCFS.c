@@ -56,3 +56,45 @@ int main() {
     printf("\nAvg Waiting Time = %.2f\n",averageWaitingTime);
     return 0;
 }
+
+
+FCFS Scheduling Algorithm
+Start
+Input number of processes
+Input:
+Burst Time (BT)
+Arrival Time (AT)
+Calculate Completion Time (CT):
+For first process:
+CT = AT + BT
+For remaining processes:
+If previous process finishes before next process arrives:
+CT = AT + BT
+Else:
+CT = Previous CT + BT
+Calculate Turnaround Time (TAT):
+
+TAT=CT−AT
+
+Calculate Waiting Time (WT):
+
+WT=TAT−BT
+
+Calculate Average Waiting Time:
+
+Average WT=
+Number of Processes
+Sum of WT
+	​
+
+
+Display:
+AT
+BT
+CT
+TAT
+WT
+Average WT
+Stop
+
+
