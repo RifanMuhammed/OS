@@ -109,3 +109,68 @@ int main() {
 
     return 0;
 }
+Round Robin Scheduling Algorithm
+Start
+Input number of processes
+Input:
+Burst Time (BT)
+Arrival Time (AT)
+Set Time Quantum (TQ)
+Initialize:
+Current Time = 0
+Completed Processes = 0
+Remaining Time = Burst Time
+Mark all processes as unfinished
+
+Repeat until all processes are completed:
+
+a. Set process found = false
+
+b. Check all processes:
+
+If process has arrived
+And process is not completed
+
+c. If Remaining Time > Time Quantum:
+
+Execute process for Time Quantum
+Reduce Remaining Time
+Increase Current Time
+
+d. Else:
+
+Execute process completely
+Increase Current Time
+Set Remaining Time = 0
+Calculate Completion Time (CT)
+Mark process as completed
+Increase completed count
+
+e. Mark process found = true
+
+If no process is available:
+Increase Current Time by 1
+Calculate Turnaround Time (TAT):
+
+TAT=CT−AT
+
+Calculate Waiting Time (WT):
+
+WT=TAT−BT
+
+Calculate Average Waiting Time:
+
+Average WT=
+Number of Processes
+Sum of WT
+	​
+
+
+Display:
+AT
+BT
+CT
+TAT
+WT
+Average WT
+Stop
